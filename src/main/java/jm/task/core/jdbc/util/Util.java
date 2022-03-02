@@ -9,19 +9,25 @@ public class Util {
     public static final String PASSWORD = "301089";
     public static final String CONNECTIONURL = "jdbc:mysql://localhost:3306/schema_test";
 
-    public static Connection getConnection() {
+    public static Connection getConnection(){
         Connection connection = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // устанавливаем автоматическую фиксацию в false
             connection.setAutoCommit(false);
+            // фиксируем транзакцию
+            connection.commit();
             System.out.println("Мы подключились !\n");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            try {
+                // отменяем возвращаем все изменения
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
         return connection;
     }
