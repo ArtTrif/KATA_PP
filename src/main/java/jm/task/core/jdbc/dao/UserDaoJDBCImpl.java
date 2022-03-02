@@ -50,7 +50,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }*/
-        //чтобы избежать SQL инъекций напишем подругому как ниже
+        //чтобы избежать SQL инъекций переписал подругому как ниже
 
 
         try (PreparedStatement preparedStatement =
