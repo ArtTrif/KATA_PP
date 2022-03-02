@@ -19,13 +19,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        /*try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS table_users" +
-                    "( id int not null auto_increment primary key, name VARCHAR(50), lastName VARCHAR(50), age MEDIUMINT );");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
         try {
             // устанавливаем автоматическую фиксацию в false
             connection.setAutoCommit(false);
@@ -47,13 +40,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        /*try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("DROP TABLE IF EXISTS table_users");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
         try {
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement("DROP TABLE IF EXISTS table_users");
@@ -70,16 +56,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-
-        /*try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO table_users (name, lastName, age) values ('" + name + "','" + lastName + "'," + age + ");");
-            System.out.println("User с именем - " + name + " добавлен в базу данных");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-        //чтобы избежать SQL инъекций переписал подругому как ниже
-
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -133,8 +109,6 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> userList = new ArrayList<>();
 
         try {
-            //Statement statement = connection.createStatement();
-            //ResultSet resultSet = statement.executeQuery("SELECT * FROM table_users;");
             PreparedStatement preparedStatement =
                     connection.prepareStatement("SELECT * FROM table_users;");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -161,8 +135,6 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() {
         try {
             connection.setAutoCommit(false);
-            /*Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM table_users");*/
             PreparedStatement preparedStatement =
                     connection.prepareStatement("DELETE FROM table_users");
             preparedStatement.executeUpdate();
