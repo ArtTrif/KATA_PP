@@ -123,10 +123,10 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            final List<User> instances = session.createCriteria(User.class).list();
+            List<User> userList = session.createQuery("from User ").getResultList();
 
-            for (Object o : instances) {
-                session.delete(o);
+            for (User user : userList) {
+                session.delete(user);
             }
 
             session.getTransaction().commit();
