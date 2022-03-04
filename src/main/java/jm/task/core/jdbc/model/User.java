@@ -1,5 +1,7 @@
 package jm.task.core.jdbc.model;
 
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 import javax.persistence.*;
 import java.util.Objects;
 
