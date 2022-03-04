@@ -18,7 +18,6 @@ public class Util {
 
     ///// ********* Hibernate ********** /////
     private static SessionFactory sessionFactory;
-
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
