@@ -14,7 +14,8 @@ public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
 
     }
-    public void closeConnection () {
+
+    public void closeConnection() {
         Util.closeConnection(connection);
     }
 
