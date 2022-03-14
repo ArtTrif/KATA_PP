@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,25 +10,15 @@
 <body>
 <table border="2">
     <tr>
-        <td align="center" width="300" height="20">Cars</td>
-
+        <th>carBrand</th>
+        <th>carColor</th>
+        <th>yearRelease</th>
     </tr>
-    <tr>
-        <td align="center" width="300" height="20" th:text="${carListCount[0]}"></td>
+    <tr th:each="car : ${carListCount}">
+        <td th:utext="${car.getCarBrand()}"></td>
+        <td th:utext="${car.getCarColor()}"></td>
+        <td th:utext="${car.getYearRelease()}"></td>
     </tr>
-    <tr>
-        <td align="center" width="300" height="20" th:text="${carListCount[1]}"></td>
-    </tr>
-    <tr>
-        <td align="center" width="300" height="20" th:text="${carListCount[2]}"></td>
-    </tr>
-    <tr>
-        <td align="center" width="300" height="20" th:text="${carListCount[3]}"></td>
-    </tr>
-    <tr>
-        <td align="center" width="300" height="20" th:text="${carListCount[4]}"></td>
-    </tr>
-
 </table>
 
 </body>
