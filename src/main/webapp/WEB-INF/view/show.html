@@ -19,12 +19,12 @@
         </tr>
     </table>
     <br>
-    <form th:action="@{/{id}/edit(id=${user.getId()})}">
+    <form th:action="@{/users/{id}/edit(id=${user.getId()})}">
         <input type="submit" value="Изменить" ;/>
     </form>
-    <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
+    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
         <input type="submit" value="Удалить" ;/>
     </form>
-    <input type="button" value="к списку" onclick="window.location.href='/'">
+    <input type="button" value="к списку" onclick="window.location.href='/users'">
 </body>
 </html>

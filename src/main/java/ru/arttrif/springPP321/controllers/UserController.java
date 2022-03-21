@@ -10,11 +10,16 @@ import ru.arttrif.springPP321.service.UserService;
 import java.util.List;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/")
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping()
     public String showAllUsers(Model model) {
         List<User> allUsers = userService.getAllUsers();
         model.addAttribute("usersAtr", allUsers);
@@ -30,7 +35,7 @@ public class UserController {
     @PostMapping()
     public String saveUser(@ModelAttribute("addUser") User user) {
         userService.saveUser(user);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
     @GetMapping("/{id}")
@@ -48,13 +53,13 @@ public class UserController {
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
         userService.update(id, user);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.delete(id);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
 

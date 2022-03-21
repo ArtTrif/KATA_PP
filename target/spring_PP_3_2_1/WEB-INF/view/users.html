@@ -14,12 +14,12 @@
     </tr>
 
     <tr th:each="user : ${usersAtr}">
-        <td><a th:href="@{/{id} (id=${user.getId()})}" th:utext="${user.getId()}"></a></td>
-        <td><a th:href="@{/{id} (id=${user.getId()})}" th:utext="${user.getName()}"></a></td>
-        <td><a th:href="@{/{id} (id=${user.getId()})}" th:utext="${user.getSurname()}"></a></td>
+        <td><a th:href="@{/users/{id} (id=${user.getId()})}" th:utext="${user.getId()}"></a></td>
+        <td><a th:href="@{/users/{id} (id=${user.getId()})}" th:utext="${user.getName()}"></a></td>
+        <td><a th:href="@{/users/{id} (id=${user.getId()})}" th:utext="${user.getSurname()}"></a></td>
     </tr>
 </table>
 <br>
-<input type="button" value="Добавить" onclick="window.location.href='new'">
+<input type="button" value="Добавить" onclick="window.location.href='/users/new'">
 </body>
 </html>
