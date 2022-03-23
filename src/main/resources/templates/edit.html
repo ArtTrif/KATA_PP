@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/users/{id}(id=${userEdit.getId()})}" th:object="${userEdit}">
+
+        <label for="name">Введите имя:</label>
+        <input th:accept-charset="UTF-8" type="text" th:field="*{name}" id="name"/>
+        <label for="surname">Введите фамилию:</label>
+        <input type="text" th:field="*{surname}" id="surname"/>
+
+        <br>
+
+        <input type="submit" value="Изменить"/>
+
+    </form>
+    <input type="button" value="к списку" onclick="window.location.href='/users'">
+</body>
+</html>
