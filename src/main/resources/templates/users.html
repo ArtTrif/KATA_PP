@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>users</title>
+    <link href="/css/style.css" type="text/css" rel="stylesheet">
+    <link href="../static/css/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<table class="form_class_table">
+        <tr class="head_table">
+            <th>id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+        <tr th:each="user : ${usersAtr}">
+            <td><a th:href="@{/admin/{id} (id=${user.getId()})}" th:utext="${user.getId()}"></a></td>
+            <td><a th:href="@{/admin/{id} (id=${user.getId()})}" th:utext="${user.getFirstName()}"></a></td>
+            <td><a th:href="@{/admin/{id} (id=${user.getId()})}" th:utext="${user.getLastName()}"></a></td>
+            <td><a th:href="@{/admin/{id} (id=${user.getId()})}" th:utext="${user.getAge()}"></a></td>
+            <td><a th:href="@{/admin/{id} (id=${user.getId()})}" th:utext="${user.getEmail()}"></a></td>
+            <td><a th:href="@{/admin/{id} (id=${user.getId()})}" th:utext="${user.getAuthorities()}"></a></td>
+
+            <td>
+                <form th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+                    <input class="button_class" type="submit" value="Edit" ;/>
+                </form>
+            </td>
+            <td>
+                <form th:method="POST" th:action="@{/admin/{id}/delete(id=${user.getId()})}">
+                    <input class="button_class" type="submit" value="Delete" ;/>
+                </form>
+            </td>
+        </tr>
+        <tr><td colspan="8"><input class="button_class" type="button" value="New User" onclick="window.location.href='/admin/new'"></td></tr>
+        <tr>
+            <td colspan="8">
+                <form name="logoutForm" th:action="@{/logout}" method="post">
+                    <input class="button_class" type="submit" value="Log Out"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+<br>
+</body>
+</html>

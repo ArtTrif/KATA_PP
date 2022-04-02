@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New User</title>
+    <link href="/css/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<form class="form_class" th:charset="UTF-8" th:method="POST" th:action="@{/admin}" th:object="${addUser}">
+    <label class="name_field" for="firstName">First name</label>
+    <input class="input_field" th:accept-charset="UTF-8" type="text" th:field="*{firstName}" id="firstName"/>
+    <br>
+    <label class="name_field" for="lastName">Last name</label>
+    <input class="input_field" type="text" th:field="*{lastName}" id="lastName"/>
+    <br>
+    <label class="name_field" for="age">Age</label>
+    <input class="input_field" type="text" th:field="*{age}" id="age"/>
+    <br>
+    <label class="name_field" for="email">Email</label>
+    <input class="input_field" type="text" th:field="*{email}" id="email"/>
+    <br>
+    <label class="name_field" for="password">Password</label>
+    <input class="input_field" type="text" th:field="*{password}" id="password"/>
+
+    <br>
+
+    <input class="button_class" type="submit" value="Создать"/>
+    <input class="button_class" type="button" value="List users" onclick="window.location.href='/admin'">
+    <form name="logoutForm" th:action="@{/logout}" method="post">
+        <input class="button_class" type="submit" value="Log Out"/>
+    </form>
+</form>
+
+</body>
+</html>
+<!--<style>
+    body {
+        padding: 50px;
+    }
+    .form_class {
+        background-color: lightslategrey;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+        font-weight: 500;
+        font-size: 18px;
+        color: white;
+        box-shadow: 8px 7px 8px 0px gray;
+        padding: 30px;
+        border-radius: 5%;
+    }
+    .name_field {
+        margin-left: 15px;
+        margin-bottom: 5px;
+    }
+
+    .input_field {
+        height: 30px;
+        border-radius: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .button_class {
+        font-size: 18px;
+        font-weight: 400;
+        padding: 10px 10px;
+        height: 50px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+</style>-->
+
