@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 public class UserDaoImpl implements UserDAO {
     private final EntityManager entityManager;
+    private RoleDAO roleDAO;
 
     @Autowired
     public UserDaoImpl(EntityManager entityManager) {
@@ -39,6 +40,7 @@ public class UserDaoImpl implements UserDAO {
     public void saveUser(User user) {
         Session session = entityManager.unwrap(Session.class);
         session.persist(user);
+
     }
 
     @Override
