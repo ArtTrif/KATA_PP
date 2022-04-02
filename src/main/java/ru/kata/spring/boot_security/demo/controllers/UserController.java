@@ -19,15 +19,29 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
 
 @Controller
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    /*private final UserDetailServiceImpl userDetailService;
+    @GetMapping()
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    public String showUser(@AuthenticationPrincipal User user, Model model) {
+
+        model.addAttribute("user", userService.findByEmail(user.getUsername()));
+
+        return "show";
+    }
+
+    //пока искал ошибку, нашел кучу вариантов в итоге оказались все рабочие
+
+    /* ВАРИАНТ 2
+
+    private final UserDetailServiceImpl userDetailService;
     @Autowired
     public UserController(UserDetailServiceImpl userDetailService) {
         this.userDetailService = userDetailService;
@@ -35,58 +49,36 @@ public class UserController {
 
 
     @GetMapping()
-    public String getUserPage(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("user", userDetailService.loadUserByUsername(principal.getName()));
-        return "user";
-    }*/
-
-    /*@GetMapping("/{id}")
-    public String showUser(@PathVariable("id") long id, Model model) {
-        User user = userService.show(id);
-        model.addAttribute("user", userService.show(id));
-        System.out.println(user);
+    public String getUserPage(Model model, Principal principal) {
+        model.addAttribute("user", userDetailService.loadUserByUsername(principal.getName()));
         return "show";
     }*/
-    @GetMapping(value = "/user")
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    public String showUser(@AuthenticationPrincipal User authUser, Model model) {
 
-        model.addAttribute("user", userService.findByEmail(authUser.getUsername()));
 
-        return "show";
-    }
-    /*@GetMapping()
-    public String showUser(@ModelAttribute("user") User user, Model model) {
-
-        User user1 = userService.show(user.getId());
-        System.out.println(user1);
-        model.addAttribute("user", user1);
-
-        return "show";
-    }*/
-   /* @GetMapping()
+/* ВАРИАНТ 3
+    @GetMapping()
     public String getUserPage(ModelMap modelMap) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelMap.addAttribute("user", user);
-        return "user";
+        return "show";
     }*/
-    /*@GetMapping()
+
+    /* ВАРИАНТ 4
+
+    @GetMapping()
     public String showUserInfo(@CurrentSecurityContext(expression = "authentication.principal") User principal,
                                Model model) {
         model.addAttribute("user", principal);
 
-        return "user";
+        return "show";
     }*/
-    /*@GetMapping()
+    /*ВАРИАНТ 5
+
+    @GetMapping()
     public String getUser(@AuthenticationPrincipal User user, Model model) {
 
         model.addAttribute("user", userService.findByEmail(user.getUsername()));
-        return "/user";
-    }*/
-    /*@GetMapping("/user")
-    public String getUser(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("roles", userService.findByEmail(user.getUsername()).getAuthorities());
-        model.addAttribute("user", userService.findByEmail(user.getUsername()));
         return "show";
     }*/
+
 }
