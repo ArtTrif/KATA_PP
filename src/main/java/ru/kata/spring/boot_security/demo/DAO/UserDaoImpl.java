@@ -13,12 +13,15 @@ import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
 public class UserDaoImpl implements UserDAO {
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private final EntityManager entityManager;
     private RoleDAO roleDAO;
 
@@ -57,6 +60,7 @@ public class UserDaoImpl implements UserDAO {
         userUpdate.setAge(user.getAge());
         userUpdate.setEmail(user.getEmail());
         userUpdate.setPassword(user.getPassword());
+        userUpdate.setAuthorities((List<Role>) user.getAuthorities());
     }
 
     @Override

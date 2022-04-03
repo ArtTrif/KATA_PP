@@ -25,8 +25,8 @@ public class RoleDAOImpl implements RoleDAO{
     }
 
     @Override
-    public Role roleById(long user_id) {
+    public Role roleById(long role_id) {
         Session session = entityManager.unwrap(Session.class);
-        return session.get(Role.class, user_id);
+        return session.get(Role.class, role_id);
     }
 }

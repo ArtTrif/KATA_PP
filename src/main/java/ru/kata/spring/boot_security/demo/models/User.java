@@ -26,7 +26,7 @@ public class User implements UserDetails {
     @Column (name="password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_users_table",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
@@ -156,7 +156,7 @@ public class User implements UserDetails {
                 '}';
     }
 
-    public UserDetails fromUser () {
+    /*public UserDetails fromUser () {
         return new org.springframework.security.core.userdetails.User(mail, password, roles);
-    }
+    }*/
 }

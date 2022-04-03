@@ -3,8 +3,11 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.DAO.RoleDAO;
+import ru.kata.spring.boot_security.demo.DAO.RoleDAOImpl;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -15,10 +18,12 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('ADMIN')")
 public class AdminController {
     private final UserService userService;
+    private final RoleDAO roleDAO;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleDAO roleDAO) {
         this.userService = userService;
+        this.roleDAO = roleDAO;
     }
 
     @GetMapping()
@@ -49,6 +54,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("userEdit", userService.show(id));
+        model.addAttribute("roles", roleDAO.getAllRole());
         return "/edit";
     }
 
