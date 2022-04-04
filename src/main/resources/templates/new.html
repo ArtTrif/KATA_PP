@@ -23,11 +23,16 @@
     <label class="name_field" for="password">Password</label>
     <input class="input_field" type="text" th:field="*{password}" id="password"/>
     <br>
+    <select multiple name="roles1">
+        <option th:each="role:${roles}" th:value="${role.getNameRole()}" th:text="${role.getNameRole()}"></option>
+    </select>
+    <br>
     <input class="button_class" type="submit" value="Create"/>
     <input class="button_class" type="button" value="List users" onclick="window.location.href='/admin'">
     <form name="logoutForm" th:action="@{/logout}" method="post">
         <input class="button_class" type="submit" value="Log Out"/>
     </form>
+
 </form>
 
 </body>

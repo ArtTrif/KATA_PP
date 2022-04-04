@@ -8,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.DAO.RoleDAO;
 import ru.kata.spring.boot_security.demo.DAO.RoleDAOImpl;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,12 +21,12 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('ADMIN')")
 public class AdminController {
     private final UserService userService;
-    private final RoleDAO roleDAO;
+    private final RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService, RoleDAO roleDAO) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
-        this.roleDAO = roleDAO;
+        this.roleService = roleService;
     }
 
     @GetMapping()
@@ -36,11 +39,18 @@ public class AdminController {
     public String addNewUser(Model model) {
         User user = new User();
         model.addAttribute("addUser", user);
+        model.addAttribute("roles", roleService.getAllRole());
         return "new";
     }
 
     @PostMapping()
-    public String saveUser(@ModelAttribute("addUser") User user) {
+    public String saveUser(@ModelAttribute("addUser") User user, @RequestParam String[] roles1) {
+        List<Role> roleList = new ArrayList<>();
+        for (String s : roles1) {
+            roleList.add(roleService.roleByName(s));
+        }
+        System.out.println(roleList);
+        user.setAuthorities(roleList);
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -54,12 +64,18 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("userEdit", userService.show(id));
-        model.addAttribute("roles", roleDAO.getAllRole());
+        model.addAttribute("roles", roleService.getAllRole());
         return "/edit";
     }
 
     @PostMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id, @RequestParam String[] roles1) {
+        List<Role> roleList = new ArrayList<>();
+        for (String s : roles1) {
+            roleList.add(roleService.roleByName(s));
+        }
+        System.out.println(roleList);
+        user.setAuthorities(roleList);
         userService.update(id, user);
         return "redirect:/admin";
     }

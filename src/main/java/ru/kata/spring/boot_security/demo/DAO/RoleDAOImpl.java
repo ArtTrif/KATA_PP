@@ -29,4 +29,10 @@ public class RoleDAOImpl implements RoleDAO{
         Session session = entityManager.unwrap(Session.class);
         return session.get(Role.class, role_id);
     }
+
+    @Override
+    public Role roleByName(String roleName) {
+        Session session = entityManager.unwrap(Session.class);
+        return session.createQuery("select role from Role role where role.nameRole=:roleName", Role.class).setParameter("roleName", roleName).getSingleResult();
+    }
 }
