@@ -22,7 +22,10 @@
                 th:each="role:${authUser.getAuthorities()}" th:text="${role} + ' '"></span>
         </div>
         <div class="col text-end ">
-            <a class="text-muted text-decoration-none fs-6 font-monospace" th:href="@{/logout}" method="post">Logout</a>
+            <a class="text-muted text-decoration-none fs-6 font-monospace" name="logoutForm" th:href="@{/logout}" method="post">Logout</a>
+            <!--<form name="logoutForm" th:action="@{/logout}" method="post">
+                <input class="text-muted text-decoration-none fs-6 font-monospace" type="submit" value="Log Out"/>
+            </form>-->
         </div>
     </div>
 
