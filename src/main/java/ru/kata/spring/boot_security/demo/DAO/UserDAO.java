@@ -13,7 +13,7 @@ public interface UserDAO {
 
     public User show (long id);
 
-    public void update(long id, User user);
+    public void update(User user);
 
     public void delete(long id);
 

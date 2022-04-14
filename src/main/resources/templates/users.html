@@ -35,10 +35,10 @@
              aria-orientation="vertical">
             <ul class="nav flex-column ">
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="#" class="nav-link active placeholder ms -0 me-0 w-100 text-start" th:href="@{/admin}">Admin</a>
+                    <a style="cursor: pointer" href="#" class="nav-link active placeholder ms -0 me-0 w-100 text-start" th:href="@{/admin}">Admin</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-                    <a href="#" class="nav-link placeholder ms -0 me-0 w-100 text-start" th:href="@{/user}">User</a>
+                    <a style="cursor: pointer" href="#" class="nav-link placeholder ms -0 me-0 w-100 text-start" th:href="@{/user}">User</a>
                 </li>
             </ul>
 

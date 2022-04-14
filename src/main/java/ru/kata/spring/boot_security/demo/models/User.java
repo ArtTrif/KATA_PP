@@ -153,7 +153,7 @@ public class User implements UserDetails {
                 ", eMail='" + mail + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + roles.toString() +
-                '}';
+                '}' + "\n";
     }
 
     /*public UserDetails fromUser () {

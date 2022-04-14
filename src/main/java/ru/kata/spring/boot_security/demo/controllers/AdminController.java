@@ -70,7 +70,7 @@ public class AdminController {
         return "/show";
     }
 //можно удалить
-/*    @GetMapping("/{id}/edit")
+    /*@GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("userEdit", userService.show(id));
         model.addAttribute("roles", roleService.getAllRole());
@@ -85,7 +85,7 @@ public class AdminController {
         }
         System.out.println(roleList);
         user.setAuthorities(roleList);
-        userService.update(id, user);
+        userService.update(user);
         return "redirect:/admin";
     }
 
