@@ -41,18 +41,15 @@ formCreate.addEventListener('submit', (e) => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newUser)
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-                getAllUsers();
-            } else {
-                alert('Что то пошло не так');
-            }
-
-        })
+        }).then(res => res.json())
 
     }
 
+    fetch(urlUsers)
+        .then(response => response.json())
+        .then((data) => {
+            return getAllUsers(data);
+        });
     createUser(newUser);
 
 
