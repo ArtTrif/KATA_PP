@@ -1,9 +1,8 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -11,13 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/users")
-@PreAuthorize("hasAnyRole('ADMIN')")
-public class RestControllerAdmin {
+public class RestController {
     private final UserService userService;
 
-    public RestControllerAdmin(UserService userService) {
+    public RestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -30,6 +28,7 @@ public class RestControllerAdmin {
     public User show(@PathVariable("id") long id) {
         return userService.show(id);
     }
+
 
     @PutMapping()
     public void updateUser(@RequestBody User user) {

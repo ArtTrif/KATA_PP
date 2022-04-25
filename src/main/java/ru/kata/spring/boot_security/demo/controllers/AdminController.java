@@ -52,6 +52,18 @@ public class AdminController {
         return "new";
     }*/
 
+    /*@PostMapping()
+    public String saveUser(@ModelAttribute("addUser") User user, @RequestParam String[] roles1) {
+        List<Role> roleList = new ArrayList<>();
+        for (String s : roles1) {
+            roleList.add(roleService.roleByName(s));
+        }
+        System.out.println(roleList);
+        user.setAuthorities(roleList);
+        System.out.println(user);
+        userService.saveUser(user);
+        return "redirect:/admin";
+    }*/
     @PostMapping()
     public String saveUser(@ModelAttribute("addUser") User user, @RequestParam String[] roles1) {
         List<Role> roleList = new ArrayList<>();
@@ -60,6 +72,7 @@ public class AdminController {
         }
         System.out.println(roleList);
         user.setAuthorities(roleList);
+        System.out.println(user);
         userService.saveUser(user);
         return "redirect:/admin";
     }

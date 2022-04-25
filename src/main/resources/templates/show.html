@@ -52,8 +52,9 @@
 <div th:object="${user}">
     <!--    header-->
     <div class="row p-3 bg-dark text-white">
-        <div class="col">
-            <strong><span th:text="${user.getEmail()}"></span></strong> with roles: <span th:each="role:${user.getAuthorities()}" th:text="${role} + ' '"></span>
+        <div class="col" id="loginHeader">
+            <!--<strong><span th:text="${user.getEmail()}"></span></strong> with roles: <span
+                th:each="role:${user.getAuthorities()}" th:text="${role} + ' '"></span>-->
         </div>
         <div class="col text-end ">
             <a class="text-muted text-decoration-none fs-6 font-monospace" th:href="@{/logout}" method="post">Logout</a>
@@ -66,10 +67,12 @@
              aria-orientation="vertical">
             <ul class="nav flex-column ">
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a style="cursor: pointer" href="#"  class="nav-link  placeholder ms -0 me-0 w-100 text-start" th:href="@{/admin}">Admin</a>
+                    <a style="cursor: pointer" href="#" class="nav-link  placeholder ms -0 me-0 w-100 text-start"
+                       th:href="@{/admin}">Admin</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-                    <a style="cursor: pointer" href="#"  class="nav-link active placeholder ms -0 me-0 w-100 text-start" th:href="@{/user}">User</a>
+                    <a style="cursor: pointer" href="#" class="nav-link active placeholder ms -0 me-0 w-100 text-start"
+                       th:href="@{/user}">User</a>
                 </li>
             </ul>
         </div>
@@ -93,14 +96,16 @@
                             <th>Email</th>
                             <th>Role</th>
                         </tr>
-                        <tr>
+                        <tbody id="userAuth">
+                        <!--<tr>
                             <td th:utext="${user.getId()}"></td>
                             <td th:utext="${user.getFirstName()}"></td>
                             <td th:utext="${user.getLastName()}"></td>
                             <td th:utext="${user.getAge()}"></td>
                             <td th:utext="${user.getEmail()}"></td>
                             <td><span th:each="role:${user.getAuthorities()}" th:utext="${role} + ' '"></span></td>
-                        </tr>
+                        </tr>-->
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -113,7 +118,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
+<script src="js/user.js"></script>
+<script src="js/loginHeader.js"></script>
 <!-- Вариант 2: Bootstrap JS отдельно от Popper
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
