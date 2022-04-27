@@ -1,13 +1,14 @@
+/*
 'use strict';
 const newUserUrl = 'http://localhost:8080/api/users';
 let formCreate = document.querySelector('#formCreate');
 let roleList = [
-    {id: 1, role: "ROLE_USER"},
-    {id: 2, role: "ROLE_ADMIN"}
+    {id: 1, nameRole: "ROLE_USER"},
+    {id: 2, nameRole: "ROLE_ADMIN"}
 ]
-
-formCreate.addEventListener('submit', (e) => {
-    e.preventDefault()
+let newBtn = document.querySelector('#addNewUserBtn');
+newBtn.addEventListener('click', async (e) => {
+    /!*e.preventDefault()*!/
 
     let firstName = formCreate.querySelector('#firstNameCreate').value;
     let lastName = formCreate.querySelector('#lastNameCreate').value;
@@ -36,22 +37,18 @@ formCreate.addEventListener('submit', (e) => {
         authorities: roles()
     }
 
-    async function createUser(newUser) {
-        await fetch(newUserUrl, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newUser)
-        }).then(res => res.json())
 
-    }
 
-    fetch(urlUsers)
-        .then(response => response.json())
-        .then((data) => {
-            return getAllUsers(data);
-        });
-    createUser(newUser);
-
+    await userFetchService.createUser(newUser);
+    /!*setTimeout(refreshTable, 1000)*!/
+    /!*fetch(newUserUrl)
+        .then(response => response.json()).then((res) => {
+            fillTable(res)
+    })*!/
+/!*    getAllUsers();*!/
+    refreshTable();
+    e.target.reset();
 
 });
 
+*/

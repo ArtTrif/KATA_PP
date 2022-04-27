@@ -37,7 +37,7 @@
              aria-orientation="vertical">
             <ul class="nav flex-column ">
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a style="cursor: pointer" href="#" class="nav-link active placeholder ms -0 me-0 w-100 text-start"
+                    <a style="cursor: pointer" href="#" id="nav-users-table-tab" class="nav-link active placeholder ms -0 me-0 w-100 text-start"
                        th:href="@{/admin}">Admin</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
@@ -259,9 +259,10 @@
         </div>
     </div>
 </div>
-<script src="js/usersAll.js"></script>
+<script src="js/main.js"></script>
+<!--<script src="js/newUser.js"></script>-->
+<!--<script src="js/usersAll.js"></script>-->
 <script src="js/loginHeader.js"></script>
-<script src="js/newUser.js"></script>
 <!--<script src="js/modalEdit.js"></script>-->
 <!-- Вариант 1: Bootstrap в связке с Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
