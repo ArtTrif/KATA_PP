@@ -2,8 +2,8 @@
 import usersAll from './usersAll';
 import user from './user';
 import newUser from './newUser';*/
-
-/*const userFetchService = {
+/*const urlUsers = 'http://localhost:8080/api/users';
+const userFetchService = {
     head: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -25,17 +25,17 @@ window.addEventListener('DOMContentLoaded', () => {
     ]
 
 //получение всех юзеров
-         function getAllUsers(urlUsers, usersAll) {
-            fetch(urlUsers)
-                .then(response => response.json())
-                .then(res => {
-                    for (let jsonElement in res) {
-                        console.log(res[jsonElement]);
-                        let nameAutority = "";
-                        for (let authority of res[jsonElement].authorities) {
-                            nameAutority += authority.nameRole.replace("ROLE_", "") + " ";
-                        }
-                        usersAll.innerHTML += `
+    function getAllUsers(urlUsers, usersAll) {
+        fetch(urlUsers)
+            .then(response => response.json())
+            .then(res => {
+                for (let jsonElement in res) {
+                    console.log(res[jsonElement]);
+                    let nameAutority = "";
+                    for (let authority of res[jsonElement].authorities) {
+                        nameAutority += authority.nameRole.replace("ROLE_", "") + " ";
+                    }
+                    usersAll.innerHTML += `
                         <tr>
                             <td>${res[jsonElement].id}
                             </td>
@@ -60,10 +60,13 @@ window.addEventListener('DOMContentLoaded', () => {
                             </td>
                         </tr>
                     `;
-                    }
-                });
-        }
-        getAllUsers(urlUsers, usersAll);
+                }
+            });
+    }
+
+    getAllUsers(urlUsers, usersAll);
+    ///////////////////////////////////////////////////////////////////////////////////
+    //все пользователи вариант 2
     /*let users;
 
     async function getAllUsers(urlUsers, usersAll) {
@@ -121,12 +124,58 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     getAllUsers(urlUsers, usersAll);*/
+    /////////////////////////////////////////////////////////////////////////////////
+    //// все пользователи вариант 65
 
+
+     /*let users = [];
+     const showAllUsers = (users) => {
+         let output = ''
+         users.forEach(user => {
+             //output - элемент вывода
+             let nameAutority = "";
+             for (let authority of user.authorities) {
+                 nameAutority += authority.nameRole.replace("ROLE_", "") + " ";
+             }
+             output += `
+             <tr id=${'tr' + user.id}>
+                 <td>${user.id}</td>
+                 <td>${user.firstName}</td>
+                 <td>${user.lastName}</td>
+                 <td>${user.age}</td>
+                 <td>${user.email}</td>
+                 <td>
+                     <span>${user.authorities.nameRole}</span>
+                 </td>
+                 <td class="text-white">
+                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${user.id}">
+                     Edit
+                 </button></td>
+                 <td class="text-white">
+                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel${user.id}">
+                     Delete
+                 </button></td>
+             </tr>
+        `;
+         });
+
+         bodyAllUsers.innerHTML = output;
+     }
+         fetch(urlUsers)
+             .then(res => res.json())
+             // получаем ответ
+             .then(data => {
+                 showAllUsers(data);
+                 users.push(...data);
+             })
+             .catch(error => console.log(error))*/
+///////////////////////////////////////////////////////////////////////////////////
 //создание юзера
     let formCreate = document.querySelector('#formCreate');
 
     function createUser() {
         formCreate.addEventListener('submit', async (e) => {
+            e.preventDefault()
 
 
             let firstName = formCreate.querySelector('#firstNameCreate').value;
@@ -160,7 +209,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(newUser)
             }).then(r => {
                 e.target.reset();
+                usersAll.innerHTML="";
                 getAllUsers(urlUsers, usersAll);
+                document.querySelector('#home').classList.add('show', 'active');
+                document.querySelector('#profile').classList.remove('show', 'active');
+                document.querySelector('#home-tab').classList.add('active');
+                document.querySelector('#profile-tab').classList.remove('active');
+
+
             })
 
 
@@ -171,42 +227,141 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-});
-    /*let formCreate = document.querySelector('#formCreate');
-    async function createUser() {
-        formCreate.addEventListener('submit', async (e) => {
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//создание юзера вариант 2
+    /*    let formCreate = document.querySelector('#formCreate');
+        async function createUser() {
+            formCreate.addEventListener('submit', async (e) => {
 
 
-            let form = document.getElementById('formCreate')
-            let formData = new FormData(form)
-            let values = Object.fromEntries(formData.entries())
+                let form = document.getElementById('formCreate')
+                let formData = new FormData(form)
+                let values = Object.fromEntries(formData.entries())
 
-            let option = form.querySelectorAll('option')
-            let roleArr = []
+                let option = form.querySelectorAll('option')
+                let roleArr = []
 
-            for (let i = 0; i < option.length; i++) {
-                if (option[i].selected === true) {
-                    let eachRole = {}
-                    eachRole.id = option[i].value
-                    roleArr.push(eachRole)
+                for (let i = 0; i < option.length; i++) {
+                    if (option[i].selected === true) {
+                        let eachRole = {}
+                        eachRole.id = option[i].value
+                        roleArr.push(eachRole)
+                    }
+                }
+                values.roles = roleArr;
+
+                await fetch(urlUsers, {
+                    method: 'POST',
+                    headers: {
+                        // 'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        // 'Referer': null
+                    },
+                    body: JSON.stringify(values)
+                }).then(form.reset())
+                getAllUsers(urlUsers, usersAll);
+                document.getElementById('nav-users-table-tab').click();
+            });
+        }
+
+        createUser();
+    });*/
+///////////////////////////////////////////////////////////////////////////////////
+//создание юзера jquery
+    /*$("#formCreate").find('#addNewUserBtn').on('click', async (event) => {
+
+        let formCreate = $('#formCreate');
+
+        let firstName = formCreate.find('#firstNameCreate').val().trim();
+        let lastName = formCreate.find('#lastNameCreate').val().trim();
+        let age = formCreate.find('#ageCreate').val().trim();
+
+        let email = formCreate.find('#emailCreate').val().trim();
+        let password = formCreate.find('#passwordCreate').val().trim();
+        let authorities = formCreate.find('#roleCreate').val();
+        let roles = () => {
+            let arrayRoles = []
+            let options = document.querySelector('#roleCreate').options
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].selected) {
+                    arrayRoles.push(roleList[i])
                 }
             }
-            values.roles = roleArr;
+            return arrayRoles;
+        }
 
-            await fetch(urlUsers, {
-                method: 'POST',
-                headers: {
-                    // 'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    // 'Referer': null
-                },
-                body: JSON.stringify(values)
-            }).then(form.reset())
-            getAllUsers(urlUsers, usersAll);
-            document.getElementById('nav-users-table-tab').click();
-        });
-    }
+        let newUser = {
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            email: email,
+            password: password,
+            authorities: roles()
+        }
+        fetch(urlUsers, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Referer': null
+                    },
+                    body: JSON.stringify(newUser)
+                }).then(r => {
+                    event.target.reset();
+                    getAllUsers(urlUsers, usersAll);
+                })
+    })
+ });*/
+/////////////////////////////////////////////////////////////////////////////////////////////
+//версия 4
+//добавляем пользователя
+/*    const addUser = document.querySelector('#formCreate')
+    addUser.addEventListener('submit', (e) => {
+        e.preventDefault()
+        let formCreate = $('#formCreate')
+        let firstName = formCreate.find('#firstNameCreate').val().trim();
+        let lastName = formCreate.find('#lastNameCreate').val().trim();
+        let age = formCreate.find('#ageCreate').val().trim();
+        let email = formCreate.find('#emailCreate').val().trim();
+        let password = formCreate.find('#passwordCreate').val().trim();
+        // let role = formCreate.find('#roleCreate').val();
+        let roles = () => {
+            let arrayRoles = []
+            let options = document.querySelector('#roleCreate').options
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].selected) {
+                    arrayRoles.push(roleList[i])
+                }
+            }
+            return arrayRoles;
+        }
+        let newUserData = {
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            email: email,
+            password: password,
+            roles: roles()
+        }
 
-    createUser();
+        fetch(urlUsers, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newUserData)
+        })
+            // .then(res => res.json())
+            .then(user => {
+                $('#nav-home-tab').addClass('active');
+                $('#nav-home').addClass('active');
+                $('#nav-profile-tab').removeClass('active');
+                $('#nav-profile').removeClass('active');
+                users.push(user)
+
+                showAllUsers(users)
+            })
+    });
 });*/
 
+
+});
