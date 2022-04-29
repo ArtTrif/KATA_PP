@@ -42,26 +42,26 @@ fetch(urlUsers)
                                        value="${res[jsonElement].id}" id="id"/>
                                 <br>
                                 <label className="name_field" htmlFor="firstName">First name</label>
-                                <input className="input_field form-control" name="firstName" th:accept-charset="UTF-8"
+                                <input className="input_field form-control inputEdit" name="firstName" th:accept-charset="UTF-8"
                                        type="text"
                                        value="${res[jsonElement].firstName}" id="firstName"/>
                                 <br>
                                 <label className="name_field" htmlFor="lastName">Last name</label>
-                                <input className="input_field form-control" name="lastName" type="text"
+                                <input className="input_field form-control " name="lastName" type="text"
                                        value="${res[jsonElement].lastName}" id="lastName"/>
                                 <br>
                                 <label className="name_field" htmlFor="age">Age</label>
-                                <input className="input_field form-control" name="age" type="number"
+                                <input className="input_field form-control " name="age" type="number"
                                        value="${res[jsonElement].age}"
                                        id="age"/>
                                 <br>
                                 <label className="name_field" htmlFor="email">Email</label>
-                                <input className="input_field form-control" name="email" type="email"
+                                <input className="input_field form-control " name="email" type="email"
                                        value="${res[jsonElement].email}"
                                        id="email"/>
                                 <br>
                                 <label className="name_field" htmlFor="password">Password</label>
-                                <input className="input_field form-control" name="password" type="password"
+                                <input className="input_field form-control " name="password" type="password"
                                        value="${res[jsonElement].password}" id="password"/>
                                 <br>
                                 <label className="name_field" htmlFor="role"> Role </label>
