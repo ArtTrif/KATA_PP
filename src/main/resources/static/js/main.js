@@ -61,7 +61,7 @@ function getAllUsers(urlUsers, usersAll) {
                             </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel${res[jsonElement].id}">
+                                <button type="button" class="btn btn-danger" onclick="delModalId(${res[jsonElement].id})" data-bs-toggle="modal" data-bs-target="#exampleModalDel">
                                     Delete
                                 </button>
                             </td>
@@ -369,10 +369,11 @@ createUser();
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // edit user
 
-let editForm = document.querySelector('#formEdit')
+
 
 // получение юзера по user.id через onclick на кнопке и заполнение формы редактирования
 function editModalId(id) {
+    let editForm = document.querySelector('#formEdit')
     const urlEdit = "http://localhost:8080/api/users/" + id;
 
     fetch(urlEdit)
@@ -402,7 +403,7 @@ function editModalId(id) {
                         inputEditElement.value = userEdit.password
                         break;
                 }
-                console.log(userEdit.authorities)
+
             }
         });
 //отправка формы для изменения юзера
@@ -482,3 +483,76 @@ function editModalId(id) {
 reply_click()*/
 
 // });
+function delModalId(id) {
+    let delForm = document.querySelector('#formDel');
+    const urlDel = "http://localhost:8080/api/users/" + id;
+
+    fetch(urlDel)
+        .then(response => response.json())
+        .then(userDel => {
+
+            let inputDel = delForm.querySelectorAll('.inputDel');
+            for (let inputDelElement of inputDel) {
+
+                switch (inputDelElement.name) {
+                    case 'id':
+                        inputDelElement.value = userDel.id
+                        break;
+                    case 'firstName':
+                        inputDelElement.value = userDel.firstName
+                        break;
+                    case 'lastName':
+                        inputDelElement.value = userDel.lastName
+                        break;
+                    case 'age':
+                        inputDelElement.value = userDel.age
+                        break;
+                    case 'email':
+                        inputDelElement.value = userDel.email
+                        break;
+                    case 'password':
+                        inputDelElement.value = userDel.password
+                        break;
+                }
+
+            }
+        });
+//отправка формы для изменения юзера
+    delForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        /*let id = delForm.querySelector('#idDel').value
+        let firstName = delForm.querySelector('#firstNameDel').value;
+        let lastName = delForm.querySelector('#lastNameDel').value;
+        let age = delForm.querySelector('#ageDel').value;
+        let email = delForm.querySelector('#emailDel').value;
+        let roles = () => {
+            let arrayRoles = []
+            let options = document.querySelector('#rolesDel').options
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].selected) {
+                    arrayRoles.push(roleList[i])
+                }
+            }
+            return arrayRoles;
+        }*/
+
+        /*let delUser = {
+            id: userDel.id,
+            firstName: userDel.firstName,
+            lastName: userDel.lastName,
+            age: userDel.age,
+            email: userDel.email,
+            password: userDel.password,
+            authorities: roles()
+        }*/
+        fetch(urlDel, {
+            method: 'DELETE',
+        }).then(r => {
+
+            event.target.reset();
+            usersAll.innerHTML = "";
+            getAllUsers(urlUsers, usersAll);
+            $('#exampleModalDel').modal('hide');
+        });
+    });
+}

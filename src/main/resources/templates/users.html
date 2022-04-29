@@ -310,7 +310,7 @@
                     <label class="name_field" for="rolesEdit"> Role </label>
                     <select class="form-select" multiple name="rolesEdit" id="rolesEdit">
                         <option value="ROLE_ADMIN">ADMIN</option>
-                        <option value="ROLE_USER">USER</option>
+                        <option value="ROLE_USER" selected>USER</option>
 
                     </select>
 
@@ -327,7 +327,7 @@
     </div>
 </div>
 <!--modal delete-->
-<div th:each="userDelete:${usersAtr}" class="modal fade" th:id="'exampleModalDel' + ${userDelete.id}" tabindex="-1"
+<!--<div th:each="userDelete:${usersAtr}" class="modal fade" th:id="'exampleModalDel' + ${userDelete.id}" tabindex="-1"
      aria-labelledby="exampleModalLabelDel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -372,6 +372,57 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button th:method="POST" type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--/////////////////////////////////////////////// варик 2 удаления-->
+<div class="modal fade" id="exampleModalDel" tabindex="-1"
+     aria-labelledby="exampleModalLabelDel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelDel">Delete user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="form_class mx-auto text-center fw-bold" id="formDel" style="width: 320px;" >
+
+                    <label class="name_field" for="idDel">id</label>
+                    <input class="input_field form-control inputDel" name="id" type="text" disabled readonly="readonly"
+                           id="idDel"/>
+                    <br>
+                    <label class="name_field" for="firstNameDel">First name</label>
+                    <input class="input_field form-control inputDel" name="firstName" disabled readonly="readonly"
+                           th:accept-charset="UTF-8" type="text" id="firstNameDel"/>
+                    <br>
+                    <label class="name_field" for="lastNameDel">Last name</label>
+                    <input class="input_field form-control inputDel" name="lastName" disabled readonly="readonly" type="text"
+                           id="lastNameDel"/>
+                    <br>
+                    <label class="name_field" for="ageDel">Age</label>
+                    <input class="input_field form-control inputDel" name="age" disabled readonly="readonly" type="number"
+                           id="ageDel"/>
+                    <br>
+                    <label class="name_field" for="emailDel">Email</label>
+                    <input class="input_field form-control inputDel" name="email" disabled readonly="readonly" type="email"
+                           id="emailDel"/>
+                    <br>
+                    <label class="name_field" for="rolesDel"> Role </label>
+                    <select class="form-select custom-select" multiple id="rolesDel" name="rolesDel" disabled>
+                        <option value="ROLE_ADMIN">ADMIN</option>
+                        <option value="ROLE_USER">USER</option>
+
+                    </select>
+
+                    <br>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </form>
             </div>
