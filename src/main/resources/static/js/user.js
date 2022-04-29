@@ -1,15 +1,17 @@
 const urlUser = 'http://localhost:8080/api/user';
 let userAuth = document.querySelector('#userAuth');
-async function getUser(){
-    let user = await fetch(urlUser);
-    let userView = await user.json();
-    let userViewAutority = "";
-    console.log(userView);
-    for (let userAuthorities of userView.authorities) {
-        userViewAutority += userAuthorities.nameRole.replace("ROLE_", "") + " ";
-        console.log(typeof userViewAutority)
-    }
-    userAuth.innerHTML += `
+
+function getUser() {
+    fetch(urlUser)
+        .then(response => response.json())
+        .then(userView => {
+            let userViewAutority = "";
+            console.log(userView);
+            for (let userAuthorities of userView.authorities) {
+                userViewAutority += userAuthorities.nameRole.replace("ROLE_", "") + " ";
+                console.log(typeof userViewAutority)
+            }
+            userAuth.innerHTML += `
                 <tr>
                     <td>${userView.id}</td>
                     <td>${userView.firstName}</td>
@@ -19,5 +21,8 @@ async function getUser(){
                     <td><span>${userViewAutority}</span></td>
                 </tr>
             `;
+        })
+
 }
+
 getUser();
