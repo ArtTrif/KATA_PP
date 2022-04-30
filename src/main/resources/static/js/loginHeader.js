@@ -4,7 +4,7 @@ const urlUserAuth = 'http://localhost:8080/api/user';
 function getUserAuth() {
     fetch(urlUserAuth)
         .then(response => response.json())
-        .then(res => {
+        .then(userAuth => {
 
             let userAuthAutority = "";
             for (let userAuthAuthorities of userAuth.authorities) {
